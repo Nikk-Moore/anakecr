@@ -6,5 +6,5 @@ A small command line utility to easily add, remove and modify anaconda environme
 
 ## Usage
 
-anakecr create <options>
-  Creates and installs a new kernel into the base jupyter anaconda environment
+anakecr create \<options\>
+  - Creates and installs a new kernel into the base jupyter anaconda environment
