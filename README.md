@@ -30,5 +30,9 @@ In the base directory run the command:
 
 ## Usage
 
-anakecr create \<options\>
+anakecr create -n name_of_environment \<options\>
   - Creates and installs a new kernel into the base jupyter anaconda environment
+  - (-d) specify a display name
+
+anakecr remove -n name_of_environment \<options\>
+  - Removes the kernel and conda environment
