@@ -21,18 +21,16 @@ conda activate {self.name}
     
     def _create_activation_conda(self):
         if self.operating_system == "Linux":
-            return '/bin/bash -c "source activate {self.condabin}'
+            return '/bin/bash -c "source activate {self.condabin}"'
 
-    def remove(self, complete=True):
-        if complete == True:
+    def remove(self, keep=False):
+        if keep == False:
             os.system(f"""{self.activation}
 jupyter kernelspec remove {self.name}
-conda env remove -n {self.name}
-""")
+conda env remove -n {self.name} """)
         else:
             os.system(f"""{self.activation}
-jupyter kernelspec remove {self.name}
-""")
+jupyter kernelspec remove {self.name} """)
     
     def install_packages(self):
-        "conda install -n myenv pip"
+        s = "conda install -n myenv pip"

@@ -1,7 +1,6 @@
 import sys, os
 import argparse
 import re
-import platform
 from pathlib import Path
 from .kernelcreator import CreateKernel
 
@@ -19,6 +18,7 @@ parser.add_argument("-d", "--display", type=str, help="The Display name")
 parser.add_argument("-c", "--conda", type=str, help="The path to the anaconda python directory")
 parser.add_argument("-r", "--requirements", type=str, help="The path to a requirments file")
 parser.add_argument("-p", "--package", type=str, help="Install a specific package")
+parser.add_argument("-k", "--keep", action="store_true", help="If present will keep the conda environment and only delete the kernel from jupyter")
 
 
 args = parser.parse_args()
@@ -33,9 +33,7 @@ def get_condahome():
             for setting in settings:
                 if setting[:5] == 'conda':
                     conda_home = setting[6:]
-            print(conda_home)
     except:
-        print('not set')
         try:
             path = re.split(":", os.getenv("PATH"))
             anacondas = [s for s in path if os.path.join("conda", 'bin') in s]
@@ -77,20 +75,25 @@ def set_condahome(path):
     with open( set_up_file, 'w') as f:
         f.writelines(new_settings)
 
-def delete_kernel():
-    pass
+def delete_kernel(conda_home):
+    if args.name == None:
+        sys.exit("Create requires an ipykernel name (-n)")
+    kernel = CreateKernel(name=args.name, condaexec=conda_home)
+    kernel.remove(args.keep)
 
 def main():
     if args.conda == None:
         conda_home = get_condahome()
+    else:
+        conda_home = args.conda
     if args.cmd == "create":
         create_kernel(conda_home)
     elif args.cmd == "install":
         install_packages(conda_home)
     elif args.cmd == "set-conda":
-        set_condahome(args.conda)
+        set_condahome(conda_home)
     elif args.cmd == "remove":
-        delete_kernel()
+        delete_kernel(conda_home)
     else:
         sys.exit("No command entered...\nPlease use -h for help")
 
