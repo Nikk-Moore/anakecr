@@ -23,8 +23,8 @@ In the base directory run the command:
 
 ## Setup
 
-<p>Yet to implement</p>
-<p>anakecr set-conda <b>< path to anaconda bin directory ></b> </p>
+<p>It is worthwile setting the base anaconda bin directory. I have written in some logic to try and infer it from the PATH environment variable however it would be preferable to set it explicitly.</P>
+<p>anakecr set-conda -c <b>< path to anaconda bin directory ></b> </p>
 
 <hr>
 
