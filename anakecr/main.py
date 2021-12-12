@@ -16,7 +16,7 @@ parser.add_argument('cmd', metavar='cmd', type=str, help=COMMAND_HELP)
 parser.add_argument("-n", "--name", metavar="name", type=str, help="The ipykernel name")
 parser.add_argument("-d", "--display", type=str, help="The Display name")
 parser.add_argument("-c", "--conda", type=str, help="The path to the anaconda python directory")
-parser.add_argument("-r", "--requirements", type=str, help="The path to a requirments file")
+parser.add_argument("-r", "--requirements", type=str, help="The path to a requirements file")
 parser.add_argument("-p", "--package", type=str, help="Install a specific package")
 parser.add_argument("-k", "--keep", action="store_true", help="If present will keep the conda environment and only delete the kernel from jupyter")
 
