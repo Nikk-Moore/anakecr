@@ -50,14 +50,15 @@ def create_kernel(conda_home):
     if args.display == None:
         args.display = args.name
         #sys.exit("Create requires a display name (-d)")
-        new_kernel = CreateKernel(name=args.name, display=args.display, condaexec=conda_home)
-        new_kernel.create()
+    new_kernel = CreateKernel(name=args.name, display=args.display, condaexec=conda_home)
+    print('Creating')
+    new_kernel.create()
 
 def install_packages(conda_home):
     if args.package != None:
         kernel = CreateKernel(name=args.name, display=args.display, condaexec=conda_home, requirement_file='')
     elif args.requirements != None:
-        kernel = CreateKernel(name=args.name, display=args.display, condaexec=conda_home, requirement_file='')
+        kernel = CreateKernel(name=args.name, display=args.display, condaexec=conda_home, requirement_file=args.requirements)
     else:
         sys.exit("Need to pass a package name (-p) or requirements file (-r)")
 
@@ -82,18 +83,23 @@ def delete_kernel(conda_home):
     kernel.remove(args.keep)
 
 def main():
+    # Firstly try and resolve the base anaconda bin folder
+    print("Main Function Started")
+    print('Test update')
     if args.conda == None:
         conda_home = get_condahome()
     else:
         conda_home = args.conda
+    # The actions of the CLI
     if args.cmd == "create":
+        print("Creating new kernel")
         create_kernel(conda_home)
-    elif args.cmd == "install":
-        install_packages(conda_home)
     elif args.cmd == "set-conda":
         set_condahome(conda_home)
     elif args.cmd == "remove":
         delete_kernel(conda_home)
+    elif args.cmd == "install":
+        install_packages(conda_home)
     else:
         sys.exit("No command entered...\nPlease use -h for help")
 

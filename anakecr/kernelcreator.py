@@ -12,10 +12,11 @@ class CreateKernel():
         self.activation = self._create_activation_conda()
 
     def create(self):
+        print ("Creating New Anaconda Kernel...")
         os.system(f"""{self.activation}
 conda create --name {self.name} {self.python_version} ipykernel -y
 conda activate {self.name}
-{os.path.join(self.conda_base, 'python')} -m ipykernel install --user --name={self.name} --display-name '{self.display}' "
+{os.path.join(self.conda_base, 'envs', self.name, 'python')} -m ipykernel install --user --name {self.name} --display-name '{self.display}' 
 """)
         print(f"Created\nkernel: {self.name}\nDisplay Name: {self.display}")
     
